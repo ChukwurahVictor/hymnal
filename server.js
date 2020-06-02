@@ -33,6 +33,10 @@ app.use('/chorus', chorusRoutes);
 app.use('/verse', verseRoutes);
 app.use('/category', categoryRoutes);
 
+app.use('/', (req, res) => {
+    res.send('This is a hymn app')
+})
+
 //handling errors
 app.use((req, res, next) => {
     const error = new Error('Not found!')
