@@ -32,7 +32,10 @@ module.exports = {
          await category.save();
          //Save the created hymn
          const createdHymn = await hymn.save();
-         res.status(201).json({ status: 'Success', createdHymn });
+         res.status(201).json({ 
+            status: 'Success', 
+            createdHymn 
+         });
       } catch(error) {
          console.log(error)
          res.status(400).json(error)

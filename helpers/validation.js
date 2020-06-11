@@ -31,11 +31,13 @@ module.exports.categoryUpdateValidation = Joi.object({
 });
 
 module.exports.verseValidation = Joi.object({
-   verse: Joi.string().required()
+   verse: Joi.string().required(),
+   hymn: Joi.string().alphanum().required()
 });
 
 module.exports.verseUpdateValidation = Joi.object({
-   verse: Joi.string()
+   verse: Joi.string(),
+   hymn: Joi.string().alphanum()
 });
 
 module.exports.userValidation = Joi.object({

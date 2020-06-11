@@ -20,7 +20,10 @@ module.exports = {
          await hymn.save();
          //Save created chorus
          const createdChorus = await chorus.save();
-         res.status(201).json({ status: 'Success' })
+         res.status(201).json({
+            status: 'Success',
+            createdChorus
+         })
       } catch(error) {
             console.log(error);
             res.status(500).json(error)

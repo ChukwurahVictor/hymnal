@@ -13,9 +13,9 @@ module.exports = {
       try {
          const hymn = await Hymn.findById(req.body.hymn)
          const verse = new Verse(req.body)
+         const createdVerse = await verse.save()
          hymn.verses.push(verse)
          await hymn.save()
-         const createdVerse = await verse.save()
          res.status(201).json({ 
             status: 'Success', 
             createdVerse 
