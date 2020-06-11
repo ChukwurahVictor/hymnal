@@ -9,6 +9,5 @@ const verseSchema = new Schema({
    }
 })
 
-//export schema
 const Verse = mongoose.model('Verse', verseSchema);
 module.exports = Verse;

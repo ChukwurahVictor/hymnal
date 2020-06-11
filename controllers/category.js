@@ -12,11 +12,12 @@ module.exports = {
       }
    },
    createCategory: async(req, res, next) => {
+      //Validate Entry
       const { error } = categoryValidation.validate(req.body);
       if (error) {
          return res.status(400).send(error.details[0].message)
       }
-      const categoryExists = Category.findOne({ name: req.body.name })
+      const categoryExists = await Category.findOne({ name: req.body.name })
       if(categoryExists) {
          return res.status(400).send('Category already exists')
       }
@@ -58,7 +59,6 @@ module.exports = {
       }
    },
    deleteCategory: async(req, res, next) => {
-      //Cascade Delete Later
       try {
          //Get the category
          const { categoryId } = req.params;

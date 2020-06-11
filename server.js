@@ -10,6 +10,7 @@ const hymnRoutes = require('./routes/hymn');
 const chorusRoutes = require('./routes/chorus');
 const verseRoutes = require('./routes/verse');
 const categoryRoutes = require('./routes/category');
+const userRoutes = require('./routes/users');
 
 //setup a logger
 app.use(logger('dev'))
@@ -32,6 +33,7 @@ app.use('/hymns', hymnRoutes);
 app.use('/chorus', chorusRoutes);
 app.use('/verse', verseRoutes);
 app.use('/category', categoryRoutes);
+app.use('/users', userRoutes);
 
 app.use('/', (req, res) => {
     res.send('This is a hymn app')

@@ -5,13 +5,21 @@ const { verseValidation, verseUpdateValidation } = require('../helpers/validatio
 
 module.exports = {
    createVerse: async(req, res, next) => {
+      //Validate Entry
+      const { error } = verseValidation.validate(req.body);
+      if (error) {
+         return res.status(400).send(error.details[0].message)
+      }
       try {
          const hymn = await Hymn.findById(req.body.hymn)
          const verse = new Verse(req.body)
          hymn.verses.push(verse)
          await hymn.save()
          const createdVerse = await verse.save()
-         res.status(201).json({ status: 'Success', createdVerse })
+         res.status(201).json({ 
+            status: 'Success', 
+            createdVerse 
+         })
       } catch(error) {
          res.status(500).json(error)
       }
@@ -26,6 +34,10 @@ module.exports = {
       }
    },
    updateVerse: async(req, res, next) => {
+      const { error } = verseUpdateValidation.validate(req.body);
+      if (error) {
+         return res.status(400).send(error.details[0].message)
+      }
       try {
          const { verseId } = req.params;
          const verse = req.body;

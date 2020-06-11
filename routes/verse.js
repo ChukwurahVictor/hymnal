@@ -1,15 +1,14 @@
 const router = require('express').Router();
-const mongoose = require('mongoose');
 
+const verify = require('../helpers/verifytoken');
 const verseControllers = require('../controllers/verse');
 
 router.route('/')
-   .post(verseControllers.createVerse)
+   .post(verify, verseControllers.createVerse);
 
 router.route('/:chorusId')
    .get(verseControllers.getVerse)
-   .patch(verseControllers.updateVerse)
-   .delete(verseControllers.deleteVerse)
+   .patch(verify, verseControllers.updateVerse)
+   .delete(verify, verseControllers.deleteVerse);
 
-//export module
 module.exports = router;

@@ -13,6 +13,7 @@ module.exports = {
       }
    },
    createHymn: async(req, res, next) => {
+      //Validate Entry
       const { error } = hymnValidation.validate(req.body);
       if (error) {
          return res.status(400).send(error.details[0].message)

@@ -27,7 +27,6 @@ const hymnSchema = new Schema({
 
 const Hymn = mongoose.model('Hymn', hymnSchema)
 
-//export schema
 module.exports =  Hymn
 
 

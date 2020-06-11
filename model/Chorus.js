@@ -8,6 +8,5 @@ const chorusSchema = new Schema({
    }
 })
 
-//export schema
 const Chorus = mongoose.model('Chorus', chorusSchema);
 module.exports = Chorus

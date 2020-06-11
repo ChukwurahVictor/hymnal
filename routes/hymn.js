@@ -1,17 +1,15 @@
 const router = require('express').Router();
-const mongoose = require('mongoose');
+const verify = require('../helpers/verifytoken')
 
 const hymnControllers = require('../controllers/hymn');
 
 router.route('/')
     .get(hymnControllers.getHymns)
-    .post(hymnControllers.createHymn)
+    .post(verify, hymnControllers.createHymn);
 
 router.route('/:hymnId')
     .get(hymnControllers.getHymn)
-    .patch(hymnControllers.updateHymn)
-    .delete(hymnControllers.deleteHymn)
+    .patch(verify, hymnControllers.updateHymn)
+    .delete(verify, hymnControllers.deleteHymn);
 
-
-//export module
 module.exports = router;
