@@ -26,9 +26,10 @@ module.exports = {
    },
    getVerse: async(req, res, next) => {
       try{
-         const { hymnId } = req.params;
-         const hymn = await Hymn.findById(hymnId).populate('chorus verses');
-         res.status(200).json(hymn)
+         const { verseId } = req.params;
+         const verse = await Verse.findById(verseId);
+         console.log(verse);
+         res.status(200).json(verse)
       } catch(error) {
          res.status(500).json(error);
       }
@@ -41,10 +42,10 @@ module.exports = {
       try {
          const { verseId } = req.params;
          const verse = req.body;
-         const updatedVerse = await Verse.findOneAndUpdate(verseId, verse)
+         const updatedVerse = await Verse.findByIdAndUpdate(verseId, verse)
          res.status(200).json({ 
             status: 'Success', 
-            message: 'Updated successfully' 
+            updatedVerse 
          })
       } catch(error) {
          res.status(500).json(error)
@@ -53,7 +54,7 @@ module.exports = {
    deleteVerse: async(req, res, next) => {
       try {
          const { verseId } = req.params;
-         const deletedVerse = await Verse.deleteOne(verseId)
+         const deletedVerse = await Verse.findByIdAndDelete(verseId)
          res.status(200).json({
             status: 'Success',
             message: 'Deleted successfully'

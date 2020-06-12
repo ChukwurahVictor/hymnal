@@ -65,7 +65,7 @@ module.exports = {
          //Update the hymn
          const hymn = req.body;
          //Save and send response
-         const updatedHymn = await Hymn.findOneAndUpdate(hymnId, hymn)
+         const updatedHymn = await Hymn.findByIdAndUpdate(hymnId, hymn)
          res.status(200).json({ status: 'Success', updatedHymn })
       } catch(error) {
          res.status(500).json(error)
@@ -75,7 +75,7 @@ module.exports = {
       try {
          //Get the hymn
          const { hymnId } = req.params;
-         const hymn = await Hymn.findOneAndDelete(hymnId)
+         const hymn = await Hymn.findByIdAndDelete(hymnId)
          //Delete hymn and send response
          res.status(200).json({ status: 'Success', message: 'Deleted successfully'})
       } catch(error) {

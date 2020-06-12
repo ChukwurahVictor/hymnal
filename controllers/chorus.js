@@ -31,9 +31,9 @@ module.exports = {
    },
    getChorus: async(req, res, next) => {
       try{
-         const { hymnId } = req.params;
-         const hymn = await Hymn.findById(hymnId).populate('chorus verses');
-         res.status(200).json(hymn)
+         const { chorusId } = req.params;
+         const chorus = await Chorus.findById(chorusId);
+         res.status(200).json(chorus)
       } catch(error) {
          res.status(500).json(error);
       }
@@ -46,7 +46,7 @@ module.exports = {
       try {
          const { chorusId } = req.params;
          const chorus = req.body;
-         const updatedChorus = await Verse.findOneAndUpdate(chorusId, chorus)
+         const updatedChorus = await Chorus.findByIdAndUpdate(chorusId, chorus)
          res.status(200).json({ 
             status: 'Success', 
             message: 'Updated successfully' 
@@ -58,7 +58,7 @@ module.exports = {
    deleteChorus: async(req, res, next) => {
       try {
          const { chorusId } = req.params;
-         const deletedChorus = await Verse.deleteOne(chorusId)
+         const deletedChorus = await Chorus.findByIdAndDelete(chorusId)
          res.status(200).json({
             status: 'Success',
             message: 'Deleted successfully'

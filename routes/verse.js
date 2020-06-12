@@ -6,7 +6,7 @@ const verseControllers = require('../controllers/verse');
 router.route('/')
    .post(verify, verseControllers.createVerse);
 
-router.route('/:chorusId')
+router.route('/:verseId')
    .get(verseControllers.getVerse)
    .patch(verify, verseControllers.updateVerse)
    .delete(verify, verseControllers.deleteVerse);

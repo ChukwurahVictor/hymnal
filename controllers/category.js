@@ -49,7 +49,7 @@ module.exports = {
          //Update the category
          const category = req.body;
          //Save and send response
-         const updatedCategory = await Category.findOneAndUpdate(categoryId, category)
+         const updatedCategory = await Category.findByIdAndUpdate(categoryId, category)
          res.status(200).json({ 
             status: 'Success', 
             updatedCategory 
@@ -62,7 +62,7 @@ module.exports = {
       try {
          //Get the category
          const { categoryId } = req.params;
-         const category = await Category.findOneAndDelete(categoryId)
+         const category = await Category.findByIdAndDelete(categoryId)
          //Delete category and send response
          res.status(200).json({ 
             status: 'Success', 
