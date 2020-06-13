@@ -6,7 +6,7 @@ const { hymnValidation, hymnUpdateValidation } = require('../helpers/validation'
 module.exports = {
    getHymns: async(req, res, next) => {
       try{
-         const hymn = await Hymn.find()
+         const hymn = await Hymn.find().select('number title')
          res.status(200).json(hymn)
       } catch(error) {
          res.status(500).json(error)
