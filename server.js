@@ -1,10 +1,11 @@
-require('dotenv').config()
+require('dotenv').config();
 
-const express = require('express')
-const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
-const logger = require('morgan')
-const app = express()
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const logger = require('morgan');
+const cors = require('cors');
+const app = express();
 
 const hymnRoutes = require('./routes/hymn');
 const chorusRoutes = require('./routes/chorus');
@@ -12,11 +13,11 @@ const verseRoutes = require('./routes/verse');
 const categoryRoutes = require('./routes/category');
 const userRoutes = require('./routes/users');
 
-//setup a logger
-app.use(logger('dev'))
+//Middlewares
+app.use(cors());
+app.use(bodyParser.json());
+app.use(logger('dev'));
 
-//body parser middleware
-app.use(bodyParser.json())
 
 //setup database
 mongoose.connect(process.env.MONGO_URI, { 
