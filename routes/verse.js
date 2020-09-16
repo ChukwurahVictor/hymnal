@@ -1,14 +1,13 @@
 const router = require('express').Router();
 
-const verify = require('../helpers/verifytoken');
 const verseControllers = require('../controllers/verse');
 
 router.route('/')
-   .post(verify, verseControllers.createVerse);
+   .post(verseControllers.createVerse);
 
 router.route('/:verseId')
    .get(verseControllers.getVerse)
-   .patch(verify, verseControllers.updateVerse)
-   .delete(verify, verseControllers.deleteVerse);
+   .patch(verseControllers.updateVerse)
+   .delete(verseControllers.deleteVerse);
 
 module.exports = router;

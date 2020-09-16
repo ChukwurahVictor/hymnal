@@ -24,7 +24,10 @@ module.exports = {
       try {
          const category = new Category(req.body);
          const createdCategory = await category.save();
-         res.status(201).json({ status: 'Success', createdCategory });
+         res.status(201).json({
+            status: 'Success',
+            createdCategory
+         });
       } catch(error) {
          res.status(500).json(error)
       }
@@ -33,7 +36,10 @@ module.exports = {
       try {
          const { categoryId } = req.params;
          const category = await Category.findById(categoryId).populate('hymns', 'number title');
-         res.status(200).json(category)
+         if(category) {
+            return res.status(200).json(category);
+         }
+         return res.status(400).send('Category with the specified ID does not exists');
       } catch(error) {
          res.status(500).json(error);
       }
@@ -44,30 +50,31 @@ module.exports = {
          return res.status(400).send(error.details[0].message)
       }
       try {
-         //Get the category
          const { categoryId } = req.params;
-         //Update the category
          const category = req.body;
-         //Save and send response
-         const updatedCategory = await Category.findByIdAndUpdate(categoryId, category)
-         res.status(200).json({ 
-            status: 'Success', 
-            updatedCategory 
-         })
+         const updated = await Category.findByIdAndUpdate(categoryId, category)
+         if(updated) {
+            return res.status(200).json({ 
+               status: 'Success', 
+               updated 
+            })
+         }
+         return res.status(400).send('Category not found!');
       } catch(error) {
          res.status(500).json(error);
       }
    },
    deleteCategory: async(req, res, next) => {
       try {
-         //Get the category
          const { categoryId } = req.params;
-         const category = await Category.findByIdAndDelete(categoryId)
-         //Delete category and send response
-         res.status(200).json({ 
-            status: 'Success', 
-            message: 'Deleted successfully'
-         })
+         const deleted = await Category.findByIdAndDelete(categoryId)
+         if(deleted) {
+            return res.status(200).json({ 
+               status: 'Success', 
+               message: 'Deleted successfully'
+            });
+         }
+         return res.status(400).send('Category not found!');
       } catch(error) {
          console.log(error)
          res.status(500).json(error)

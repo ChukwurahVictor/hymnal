@@ -11,13 +11,11 @@ const hymnRoutes = require('./routes/hymn');
 const chorusRoutes = require('./routes/chorus');
 const verseRoutes = require('./routes/verse');
 const categoryRoutes = require('./routes/category');
-const userRoutes = require('./routes/users');
 
 //Middlewares
 app.use(cors());
 app.use(bodyParser.json());
 app.use(logger('dev'));
-
 
 //setup database
 mongoose.connect(process.env.MONGO_URI, { 
@@ -34,10 +32,9 @@ app.use('/hymns', hymnRoutes);
 app.use('/chorus', chorusRoutes);
 app.use('/verse', verseRoutes);
 app.use('/category', categoryRoutes);
-app.use('/users', userRoutes);
 
 app.use('/', (req, res) => {
-    res.send('This is a hymn app')
+    res.send('Go to /hymns - to see all hymns')
 })
 
 //handling errors

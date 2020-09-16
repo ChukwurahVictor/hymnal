@@ -26,14 +26,10 @@ module.exports = {
          return res.status(400).send('Hymn number already exists')
       }
       try {
-         //Get the Category
          const category = await Category.findById(req.body.category);
-         //Create the Hymn
          const hymn = new Hymn(req.body);
-         //Push into Category array 'hymns'
          category.hymns.push(hymn)
          await category.save();
-         //Save the created hymn
          const createdHymn = await hymn.save();
          res.status(201).json({ 
             status: 'Success', 
@@ -52,7 +48,10 @@ module.exports = {
                            .populate('chorus', 'chorus')
                            .populate('category', 'name')
                            .populate('verses', 'verse')
-         res.status(200).json(hymn)
+         if(hymn) {
+            return res.status(200).json({ hymn });
+         }
+         return res.status(400).send('Hymn with the specified ID does not exists');
       } catch(error) {
          res.status(500).json(error);
       }
@@ -63,24 +62,31 @@ module.exports = {
          return res.status(400).send(error.details[0].message)
       }
       try {
-         //Get the hymn
          const { hymnId } = req.params;
-         //Update the hymn
          const hymn = req.body;
-         //Save and send response
          const updatedHymn = await Hymn.findByIdAndUpdate(hymnId, hymn)
-         res.status(200).json({ status: 'Success', updatedHymn })
+         if(updatedHymn) {
+            return res.status(200).json({
+               status: 'Success',
+               updatedHymn
+            });
+         }
+         return res.status(400).send('Hymn not found!');
       } catch(error) {
          res.status(500).json(error)
       }
    },
    deleteHymn: async(req, res, next) => {
       try {
-         //Get the hymn
          const { hymnId } = req.params;
-         const hymn = await Hymn.findByIdAndDelete(hymnId)
-         //Delete hymn and send response
-         res.status(200).json({ status: 'Success', message: 'Deleted successfully'})
+         const deleted = await Hymn.findByIdAndDelete(hymnId);
+         if(deleted) {
+            return res.status(200).json({
+               status: 'Success',
+               message: 'Deleted successfully'
+            });
+         }
+         return res.status(400).send('Hymn not found!');
       } catch(error) {
          console.log(error)
          res.status(500).json(error)

@@ -11,14 +11,10 @@ module.exports = {
          return res.status(400).send(error.details[0].message)
       }
       try {
-         //Get the hymn
          const hymn = await Hymn.findById(req.body.hymn);
-         //Create the chorus
          const chorus = new Chorus(req.body);
-         //Add to hymn and save
          hymn.chorus = chorus;
          await hymn.save();
-         //Save created chorus
          const createdChorus = await chorus.save();
          res.status(201).json({
             status: 'Success',
@@ -33,7 +29,10 @@ module.exports = {
       try{
          const { chorusId } = req.params;
          const chorus = await Chorus.findById(chorusId);
-         res.status(200).json(chorus)
+         if(chorus) {
+            return res.status(200).json({ chorus });
+         }
+         return res.status(400).send('Chorus with the specified id does not exists');
       } catch(error) {
          res.status(500).json(error);
       }
@@ -47,10 +46,13 @@ module.exports = {
          const { chorusId } = req.params;
          const chorus = req.body;
          const updatedChorus = await Chorus.findByIdAndUpdate(chorusId, chorus)
-         res.status(200).json({ 
-            status: 'Success', 
-            message: 'Updated successfully' 
-         })
+         if(updatedChorus) {
+            return res.status(200).json({ 
+               status: 'Success', 
+               message: 'Updated successfully' 
+            });
+         }
+         return res.status(400).send('Chorus not found!');
       } catch(error) {
          res.status(500).json(error)
       }
@@ -59,10 +61,13 @@ module.exports = {
       try {
          const { chorusId } = req.params;
          const deletedChorus = await Chorus.findByIdAndDelete(chorusId)
-         res.status(200).json({
-            status: 'Success',
-            message: 'Deleted successfully'
-         })
+         if(deletedChorus) {
+            return res.status(200).json({
+               status: 'Success',
+               message: 'Deleted successfully'
+            });
+         }
+         return res.status(400).send('Chorus not found!');
       } catch(error) {
          res.status(500).json(error)
       }

@@ -39,15 +39,3 @@ module.exports.verseUpdateValidation = Joi.object({
    verse: Joi.string(),
    hymn: Joi.string().alphanum()
 });
-
-module.exports.userValidation = Joi.object({
-   name: Joi.string().required(),
-   email: Joi.string().email().required(),
-   password: Joi.string().required(),
-   admin: Joi.boolean()
-});
-
-module.exports.loginValidation = Joi.object({
-   email: Joi.string().email().required(),
-   password: Joi.string().required()
-})
