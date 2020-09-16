@@ -3,6 +3,8 @@ This is a hymn app using Nodejs, Express, Mongoose and other packages
 
 Frontend - https://github.com/nonsoo24/catholic-hymns
 
+API - https://catholic-hymns.herokuapp.com
+
 Documentation - https://documenter.getpostman.com/view/11280336/SzzhdHoB?version=latest
 
 ## Usage
