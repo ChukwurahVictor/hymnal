@@ -1,5 +1,5 @@
 # hymnal
-This is a hymn app using Nodejs, Express, JWT, Mongoose and other packages
+This is a hymn app using Nodejs, Express, Mongoose and other packages
 
 Frontend - https://github.com/nonsoo24/catholic-hymns
 
